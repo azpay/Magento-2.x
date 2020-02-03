@@ -1,0 +1,55 @@
+<?php
+$order = $block->getOrder();
+?>
+<div class="checkout-success" style="display: <?php echo $block->getStatus() == 'pending_payment' ? 'none' : 'block'; ?>">
+<?php if($order->getIncrementId()):?>           
+		<p><?php echo __('Thank you. We received your payment') ?></p>
+       <p><?php echo __('Order #: <span>%1</span>.',$order->getIncrementId()) ?></p> <br>
+       <p><?php echo __('We\'ll email you an order confirmation with details and tracking info.') ?></p>              
+<?php endif;?>
+</div>
+<?php
+if (($block->getPaymentMethod() == 'rm_gateway_boleto' || $block->getPaymentMethod() == 'rm_gateway_tef' || ($block->getPaymentMethod() == 'rm_gateway_cd')) && $block->getStatus() == 'pending_payment'):
+	$boletoUrl =  $block->getPaymentInfo(); ?>
+	<br>
+	
+	<div class="dv-waiting">
+		<p id="message-payment"></p>		
+		<p><?php echo $boletoUrl['desc'] ?></p>
+	<input class="action primary btn-boleto" type="button" id="rm_gateway_btnboleto" onclick="window.open('<?php echo $boletoUrl['url'] ?>', '_blank');" value="<?php echo $boletoUrl['texto'] ?>"/><br><br></div>
+	<script>		
+		window.addEventListener('load', function() {
+			$ = jQuery;
+			$('.page-title > span').text('Finalize seu pedido');
+			$('p:contains("Your order #")').hide();
+			let url = '/gateway/ajax/transactionData?id=<?php echo $block->getTransactionId() ?>';
+			var timer = setInterval(function(){
+				$.ajax({
+			        url: url,
+			        success: function(response){			            
+			            if (response.status == 8){
+			            	$(".dv-waiting").remove();
+			            	$('.checkout-success').show();		
+			            	$('.page-title > span').text('Pedido realizado com sucesso!');
+			            	$("#message-payment").text("Seu pagamento foi aprovado. Obrigado.");            	
+			            	//$(".checkout-success").prepend("Your payment was approved. Thank you");
+			            	clearInterval(timer);
+			            }else if (response.status == 4){
+			            	$("#message-payment").text("Seu pagamento não foi aprovado, tente novamente.");
+			            }
+			            /*for (var i = 1; i<=response.installments; i++){
+			                console.log(i);
+			                instElm.append('<option value="'+i+'">'+i+'</option>');
+			            }*/
+			        },
+			        error: function(response){
+			            return false;
+			        }
+			    });				
+			}, 
+			5000);
+		});
+	</script>
+<?php endif; ?>
+<br><br><button type="button" title="<?php echo __('Continue Shopping') ?>" class="action primary button btn-continue" onclick="location.href='/'"><span><span><?php echo __('Continue Shopping') ?></span></span></button>
+	

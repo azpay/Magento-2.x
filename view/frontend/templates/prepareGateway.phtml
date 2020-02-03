@@ -1,0 +1,177 @@
+<?php
+$helper = $this->helper('Azpay\Gateway\Helper\Data');
+$viewJsPath = $block->getViewFileUrl('Azpay_Gateway::js/gateway.js');
+$storeUrl = $helper->getStoreUrl();
+$grandTotal = $helper->getGrandTotal();
+$installments = $helper->getInstallmentQty();
+$validateRg = $helper->getValidateRg();
+$visibleCpf = '1';
+$ccPlaceholderImage = $this->getViewFileUrl('Azpay_Gateway::images/cc-placeholder.png');
+?>
+<input id="store_url" value="<?php echo $storeUrl ?>"/>
+<script src="<?php echo $viewJsPath;?>"></script>
+<script type="text/javascript">
+     //<![CDATA[
+    var prepareGateway = function(){
+        
+        if(typeof RMGatewayObj != "undefined"){
+            <?php if ($helper->isDebugActive()): ?>            
+            <?php endif; ?>
+            return;
+        }
+        <?php if ($helper->isDebugActive()): ?>        
+        <?php endif; ?>
+            var RMGatewayObj = new RMGateway(<?php echo $helper->getConfigJs()?>);            
+            RMGatewayObj.addCardFieldsObserver(RMGatewayObj);
+            RMGatewayObj.addPersonTypeObserver(RMGatewayObj);
+            RMGatewayObj.setStoreUrl("<?php echo $storeUrl ?>");
+            RMGatewayObj.updateBrand();
+            RMGatewayObj.setInstallmentsQty(<?php echo $installments;?>);
+            RMGatewayObj.getGrandTotal();       
+            RMGatewayObj.setCardPlaceHolderImage("<?php echo $ccPlaceholderImage ?>");
+            RMGatewayObj.getInstallments("<?php echo $grandTotal ?>", 0);
+    }
+    window.visibleCpf = <?php echo $visibleCpf ?>;    
+
+    window.addEventListener('load', function() {
+        validateRg = "<?php echo $validateRg ?>";
+        jQuery(document).on('change', '.form-shipping-address input', function(){        	
+        	let ptipo = jQuery('select[name="buyer_ptype"]').val();
+        	
+        	if (ptipo === 'fisica'){
+        		let dvCpf = jQuery('[name="shippingAddress.buyer_cpf"]')
+        		let dvRg = jQuery('[name="shippingAddress.buyer_rg"]')
+        		let cpf = jQuery('[name="buyer_cpf"]');
+        		let rg = jQuery('[name="buyer_rg"]');
+        		dvCpf.children('.field-error').remove();
+        		dvRg.children('.field-error').remove();
+        		let valid = 0;
+                if (validarCpf(cpf.val())){                	
+					valid++;
+                }else{
+                	dvCpf.append('<div class="field-error" data-bind="attr: { id: element.errorId }" generated="true" id="error-GOF1VM2"><span data-bind="text: element.error">Digite um cpf válido</span></div>');
+                }
+                console.log(validateRg === "1", validateRg === "0");
+                if (validateRg === "1"){
+                    if (rg.val().length > 0){
+                    	valid++;
+                    }else{
+    					dvRg.append('<div class="field-error" data-bind="attr: { id: element.errorId }" generated="true" id="error-GOF1VM2"><span data-bind="text: element.error">Digite o RG</span></div>');
+                    }
+                }else{
+                    valid++;
+                }
+                
+                if (valid == 2){
+                	jQuery('#co-shipping-method-form button').attr("disabled", false);
+                }else{
+					jQuery('#co-shipping-method-form button').attr("disabled", true);
+                }
+                                
+            }else if (ptipo  === 'juridica'){                
+                jQuery('[name="shippingAddress.buyer_cnpj"]').show();
+                jQuery('[name="shippingAddress.company"]').show();
+                let dvCnpj = jQuery('[name="shippingAddress.buyer_cnpj"]')
+        		let dvCompany = jQuery('[name="shippingAddress.company"]')
+        		let cnpj = jQuery('[name="buyer_cnpj"]');
+        		let company = jQuery('[name="company"]');
+        		dvCnpj.children('.field-error').remove();
+        		dvCompany.children('.field-error').remove();
+        		let valid = 0;
+                if (validarCnpj(cnpj.val())){                	
+					valid++;
+                }else{
+                	dvCnpj.append('<div class="field-error" data-bind="attr: { id: element.errorId }" generated="true" id="error-GOF1VM2"><span data-bind="text: element.error">Digite um cnpj válido</span></div>');
+                }
+                if (company.val().length > 0){
+                	valid++;
+                }else{
+					dvCompany.append('<div class="field-error" data-bind="attr: { id: element.errorId }" generated="true" id="error-GOF1VM2"><span data-bind="text: element.error">Digite o nome da empresa</span></div>');
+                }
+                
+                if (valid == 2){
+                	jQuery('#co-shipping-method-form button').attr("disabled", false);
+                }else{
+					jQuery('#co-shipping-method-form button').attr("disabled", true);
+                }
+            }        	
+        });
+
+        jQuery(document).on('change', 'select[name="buyer_ptype"]', function(){
+        	console.log("SELECTTT", this.value);     
+        	jQuery('#co-shipping-method-form button').attr("disabled", true);
+            if (this.value === 'fisica'){
+                jQuery('[name="shippingAddress.buyer_cpf"]').show();
+                jQuery('[name="shippingAddress.buyer_rg"]').show();
+                jQuery('[name="shippingAddress.buyer_cnpj"]').hide();
+                jQuery('[name="shippingAddress.company"]').hide();
+
+                let dvCpf = jQuery('[name="shippingAddress.buyer_cpf"]')
+        		let dvRg = jQuery('[name="shippingAddress.buyer_rg"]')
+        		let cpf = jQuery('[name="buyer_cpf"]');
+        		let rg = jQuery('[name="buyer_rg"]');
+        		dvCpf.children('.field-error').remove();
+        		dvRg.children('.field-error').remove();
+        		let valid = 0;
+                if (validarCpf(cpf.val())){                	
+					valid++;
+                }else{
+                	dvCpf.append('<div class="field-error" data-bind="attr: { id: element.errorId }" generated="true" id="error-GOF1VM2"><span data-bind="text: element.error">Digite um cpf válido</span></div>');
+                }
+                if (validateRg === "1"){
+                    if (rg.val().length > 0){
+                        valid++;
+                    }else{
+                        dvRg.append('<div class="field-error" data-bind="attr: { id: element.errorId }" generated="true" id="error-GOF1VM2"><span data-bind="text: element.error">Digite o RG</span></div>');
+                    }
+                }else{
+                    valid++;
+                }
+                
+                if (valid == 2){
+                	jQuery('#co-shipping-method-form button').attr("disabled", false);
+                }else{
+					jQuery('#co-shipping-method-form button').attr("disabled", true);
+                }
+
+            }else if (this.value === 'juridica'){
+                jQuery('[name="shippingAddress.buyer_cpf"]').hide();
+                jQuery('[name="shippingAddress.buyer_rg"]').hide();
+                jQuery('[name="shippingAddress.buyer_cnpj"]').show();
+                jQuery('[name="shippingAddress.company"]').show();
+
+                jQuery('[name="shippingAddress.buyer_cnpj"]').show();
+                jQuery('[name="shippingAddress.company"]').show();
+                let dvCnpj = jQuery('[name="shippingAddress.buyer_cnpj"]')
+        		let dvCompany = jQuery('[name="shippingAddress.company"]')
+        		let cnpj = jQuery('[name="buyer_cnpj"]');
+        		let company = jQuery('[name="company"]');
+        		dvCnpj.children('.field-error').remove();
+        		dvCompany.children('.field-error').remove();
+        		let valid = 0;
+                if (validarCnpj(cnpj.val())){                	
+					valid++;
+                }else{
+                	dvCnpj.append('<div class="field-error" data-bind="attr: { id: element.errorId }" generated="true" id="error-GOF1VM2"><span data-bind="text: element.error">Digite um cnpj válido</span></div>');
+                }
+                if (company.val().length > 0){
+                	valid++;
+                }else{
+					dvCompany.append('<div class="field-error" data-bind="attr: { id: element.errorId }" generated="true" id="error-GOF1VM2"><span data-bind="text: element.error">Digite o nome da empresa</span></div>');
+                }
+                
+                if (valid == 2){
+                	jQuery('#co-shipping-method-form button').attr("disabled", false);
+                }else{
+					jQuery('#co-shipping-method-form button').attr("disabled", true);
+                }
+            }
+        });
+        setTimeout(function(){
+            jQuery('select[name="buyer_ptype"]').change();
+        }, 1000);
+        prepareGateway();
+    });
+
+    //]]>
+</script>

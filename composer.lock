@@ -1,0 +1,65 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "e1a2334efcb07439420a6070ba5d1d1a",
+    "packages": [
+        {
+            "name": "azpay/sdk-php-7",
+            "version": "v1.5.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/azpay/SDK-PHP-7.git",
+                "reference": "377925c884d2e1468ba4ec9b5083c0c468fda482"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/azpay/SDK-PHP-7/zipball/377925c884d2e1468ba4ec9b5083c0c468fda482",
+                "reference": "377925c884d2e1468ba4ec9b5083c0c468fda482",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "php": ">=7.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Gateway\\API\\": "src/gateway/API/"
+                },
+                "psr-0": {
+                    "Gateway\\API\\": "src/gateway/API"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Bruno Paz",
+                    "email": "brunopaz@azpay.com.br"
+                }
+            ],
+            "description": "SDK PHP AZPAY",
+            "time": "2019-12-04T17:01:03+00:00"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": [],
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": {
+        "ext-curl": "*",
+        "ext-iconv": "*",
+        "ext-json": "*",
+        "ext-libxml": "*",
+        "ext-mbstring": "*",
+        "ext-simplexml": "*"
+    },
+    "platform-dev": []
+}

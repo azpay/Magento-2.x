@@ -1,0 +1,10 @@
+<?php
+/** @var \Azpay\Gateway\Block\Payment\Info $block */
+?>
+
+<p><strong><?= $block->escapeHtml($block->getMethod()->getTitle()) ?></strong></p>
+<?php if($paymentInfo = $block->getPaymentInfo() && $block->getStatus() == 'pending_payment'): ?>
+<p>
+    <a href="<?php echo $paymentInfo['url'];?>" target="_blank"><?php echo $paymentInfo['texto'];?></a>
+</p>
+<?php endif;?>

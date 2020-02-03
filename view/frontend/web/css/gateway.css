@@ -1,0 +1,10 @@
+.checkout-payment-method .input-text.ps_cc_birthdate, .checkout-payment-method .input-text.cc-exp-date,
+.checkout-payment-method .input-text.cd-exp-date
+ {
+	width: 50px !important;
+}
+
+.checkout-payment-method .ccard .fields .select-installments {
+	padding-left: 5px;
+	padding-right: 25px !important;
+}

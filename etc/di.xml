@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <virtualType name="GatewayLogger" type="Magento\Framework\Logger\Monolog">
+        <arguments>
+            <argument name="handlers"  xsi:type="array">
+                <item name="debug" xsi:type="object">Azpay\Gateway\Logger\Handler\Custom</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="Azpay\Gateway\Helper\Logger">
+        <arguments>
+            <argument name="customLogger" xsi:type="object">GatewayLogger</argument>
+        </arguments>
+    </type>
+    <type name="Magento\Checkout\Block\Checkout\LayoutProcessor">
+        <plugin name="gst_number" type="Azpay\Gateway\Plugin\Checkout\Model\LayoutProcessor" sortOrder="100"/>
+    </type>
+</config>

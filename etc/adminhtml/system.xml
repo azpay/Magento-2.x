@@ -1,0 +1,201 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="payment">
+            <group id="rm_gateway" translate="label comment" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0">
+                <label>Azpay - General Settings</label>
+                <comment><![CDATA[Need help?]]></comment>  
+                <field id="ambiente" translate="label comment" type="select" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Ambiente</label>                    
+                    <source_model>Azpay\Gateway\Model\System\Config\Source\Ambiente</source_model>
+                </field>               
+                <field id="merchant_id" translate="label" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Merchant ID</label>
+                </field>
+                <field id="merchant_key" translate="label" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Merchant Key</label>
+                </field> 
+                <field id="telefone_required" translate="label comment" type="select" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Telefone obrigatório?</label>                    
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field> 
+                <field id="rg_required" translate="label comment" type="select" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>RG obrigatório?</label>                    
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field> 
+                <field id="debug" translate="label comment" type="select" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Debug</label>
+                    <comment><![CDATA[See the log output in var/log/gateway.log. It is recommended that you enable logging for information about any issues.]]></comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>                
+            </group>
+            <group id="rm_gateway_cc" translate="label" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="0">
+                <label>Azpay - Cartão de Crédito</label>
+                <field id="active" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="title" translate="label" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Title</label>
+                </field>
+                 <field id="acquirer" translate="label comment" type="select" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Método de pagamento</label>                    
+                    <source_model>Azpay\Gateway\Model\System\Config\Source\Ccacquirer</source_model>
+                </field>
+                 <field id="soft_descriptor" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Soft Descriptor</label>
+                    <validate>validate-length maximum-length-10</validate>
+                </field>                
+                <field id="can_antifraud" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Ativar Antifraude</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="antifraud" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Antifraude</label>
+                    <source_model>Azpay\Gateway\Model\System\Config\Source\Antifraud</source_model>
+                </field>
+                <field id="payment_action" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Ativar Captura Automática</label>
+                    <source_model>Azpay\Gateway\Model\System\Config\Source\PaymentAction</source_model>
+                </field>                
+                <field id="smallest_installment" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Parcela mínima</label>
+                    <validate>required-entry validate-digits validate-not-negative-number validate-length</validate>
+                </field>
+                <field id="max_installments" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Parcelar em até</label>
+                    <validate>required-entry validate-digits validate-not-negative-number validate-length minimum-length-1 maximum-length-2 </validate>
+                </field>
+                <field id="interest_rate" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Taxa de Juros (%)</label>
+                    <validate>validate-not-negative-number validate-number maximum-length-3</validate>
+                </field>
+                <field id="credit_interest" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Cobrar juros a partir de</label>
+                    <validate>validate-not-negative-number validate-number</validate>
+                </field>
+                <field id="show_min_value" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Valor mínimo para exibição</label>
+                    <validate>validate-not-negative-number validate-number</validate>
+                </field>
+                <field id="order_status" translate="label" type="select" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>New Order Status</label>
+                    <source_model>Magento\Sales\Model\Config\Source\Order\Status</source_model>
+                </field>                               
+                <field id="sort_order" translate="label comment" type="text" sortOrder="7" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Sort Order</label>
+                    <frontend_class>validate-number</frontend_class>
+                </field>
+
+            </group>
+            <group id="rm_gateway_cd" translate="label" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="0">
+                <label>Azpay - Cartão de Débito</label>
+                <field id="active" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                 <field id="title" translate="label" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Title</label>
+                </field>
+                <field id="order_status" translate="label" type="select" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>New Order Status</label>
+                    <source_model>Magento\Sales\Model\Config\Source\Order\Status</source_model>
+                </field>                             
+                <field id="sort_order" translate="label comment" type="text" sortOrder="7" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Sort Order</label>
+                    <frontend_class>validate-number</frontend_class>
+                </field>   
+                <field id="acquirer" translate="label comment" type="select" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Método de pagamento</label>                    
+                    <source_model>Azpay\Gateway\Model\System\Config\Source\Ccacquirer</source_model>
+                </field>
+                 <field id="soft_descriptor" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Soft Descriptor</label>
+                    <validate>validate-length maximum-length-10</validate>
+                </field>                
+                <field id="can_antifraud" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Ativar Antifraude</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="antifraud" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Antifraude</label>
+                    <source_model>Azpay\Gateway\Model\System\Config\Source\Antifraud</source_model>
+                </field>                 
+                <field id="show_min_value" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Valor mínimo para exibição</label>
+                    <validate>validate-not-negative-number validate-number</validate>
+                </field>
+                <field id="payment_desc" translate="label" type="textarea" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Descrição pagamento</label>                    
+                </field>
+            </group>
+             <!--Boleto / Bank billet-->
+            <group id="rm_gateway_boleto" translate="label" sortOrder="21" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Azpay - Boleto</label>
+                <field id="active" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="title" translate="label" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Title</label>
+                </field>
+                <field id="acquirer" translate="label comment" type="select" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Método de pagamento</label>                    
+                    <source_model>Azpay\Gateway\Model\System\Config\Source\Slipacquirer</source_model>
+                </field>
+                <field id="order_status" translate="label" type="select" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>New Order Status</label>
+                    <source_model>Magento\Sales\Model\Config\Source\Order\Status</source_model>
+                </field>
+                <field id="sort_order" translate="label comment" type="text" sortOrder="7" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Sort Order</label>
+                    <frontend_class>validate-number</frontend_class>
+                </field>
+                <field id="slip_expire" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Vencimento em dias</label>
+                    <validate>validate-not-negative-number validate-number</validate>
+                </field>
+                <field id="instructions" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Instruções</label>
+                </field>                  
+                <field id="show_min_value" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Valor mínimo para exibição</label>
+                    <validate>validate-not-negative-number validate-number</validate>
+                </field> 
+                <field id="payment_desc" translate="label" type="textarea" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Descrição pagamento</label>                    
+                </field> 
+            </group>
+            <!-- tef -->
+            <group id="rm_gateway_tef" translate="label" sortOrder="21" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Azpay - Transferência</label>
+                <field id="active" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="title" translate="label" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Title</label>
+                </field>
+                <field id="acquirer" translate="label comment" type="select" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Método de pagamento</label>                    
+                    <source_model>Azpay\Gateway\Model\System\Config\Source\Transferacquirer</source_model>
+                </field>
+                <field id="order_status" translate="label" type="select" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>New Order Status</label>
+                    <source_model>Magento\Sales\Model\Config\Source\Order\Status</source_model>
+                </field>                
+                <field id="sort_order" translate="label comment" type="text" sortOrder="7" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Sort Order</label>
+                    <frontend_class>validate-number</frontend_class>
+                </field>                
+                <field id="show_min_value" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Valor mínimo para exibição</label>
+                    <validate>validate-not-negative-number validate-number</validate>
+                </field>  
+                <field id="payment_desc" translate="label" type="textarea" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Descrição pagamento</label>                    
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

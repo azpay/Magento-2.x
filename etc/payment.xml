@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<payment xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Payment:etc/payment.xsd">
+    <methods>
+        <method name="rm_gateway_cc">
+            <allow_multiple_address>0</allow_multiple_address>
+        </method>
+        <method name="rm_gateway_cd">
+            <allow_multiple_address>0</allow_multiple_address>
+        </method>
+        <method name="rm_gateway_boleto">
+            <allow_multiple_address>0</allow_multiple_address>
+        </method>
+        <method name="rm_gateway_tef">
+            <allow_multiple_address>0</allow_multiple_address>
+        </method>
+    </methods>
+</payment>

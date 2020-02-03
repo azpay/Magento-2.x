@@ -1,0 +1,5 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Catalog:etc/product_types.xsd">
+    <type name="subscription_product_type" label="Subscription" modelInstance="Azpay\Gateway\Model\Product\Type\NewProductType" indexPriority="60" sortOrder="80" isQty="true">
+        <priceModel instance="Azpay\Gateway\Model\Product\Price" />
+    </type>
+</config>

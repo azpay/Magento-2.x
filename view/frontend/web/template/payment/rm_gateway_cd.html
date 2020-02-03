@@ -1,0 +1,153 @@
+<div class="payment-method" data-bind="css: {'_active': (getCode() == isChecked())}">
+    <div class="payment-method-title field choice">
+        <input type="radio"
+               name="payment[method]"
+               class="radio"
+               data-bind="attr: {'id': getCode()}, value: getCode(), checked: isChecked, click: selectPaymentMethod, visible: isRadioButtonVisible()"/>
+        <label data-bind="attr: {'for': getCode()}" class="label"><span data-bind="text: getTitle()"></span></label>
+    </div>
+	<div class="payment-method-content" id="gateway_cd_method">
+		<form class="form" data-bind="attr: {'id': getCode() + '-form'}">				
+			<fieldset data-bind="attr: {class: 'fieldset payment items ccard cd ' + getCode(), id: 'payment_' + getCode()}">
+						
+				
+				<!-- ko foreach: getRegion('messages') -->
+				<!-- ko template: getTemplate() --><!-- /ko -->
+                <!--/ko-->
+                                
+                <div class="field number required">
+                    <label data-bind="attr: {for: getCode() + '_cd_owner'}" class="label">
+                        <span><!-- ko i18n: 'Credit Card Owner Name'--><!-- /ko --></span>
+                    </label>
+                    <div class="control">
+                        <input type="text" name="payment[ps_cd_owner]" class="input-text" value=""
+                               data-bind="attr: {
+                                                autocomplete: off,
+                                                id: getCode() + '_cd_owner',
+                                                title: $t('Credit Card Owner Name'),
+                                                'data-container': getCode() + '-cd-owner',
+                                                'data-validate': JSON.stringify({'required':true})}"
+                                                />
+                    </div>
+                </div>
+            
+                <div class="field number required">
+                    <label data-bind="attr: {for: getCode() + '_cd_number'}" class="label">
+                        <span><!-- ko i18n: 'Credit Card Number'--><!-- /ko --></span>
+                    </label>
+                    <div class="control">
+                      <div class="cd-number-input">
+                        <input type="text" class="input-text cd_number_visible" value=""
+                               data-bind="attr: {
+                                                autocomplete: off,
+                                                id: getCode() + '_cd_number_visible'},
+                                          enable: isActive($parents),
+                                          valueUpdate: 'keyup',
+                                          event: {keypress: numbervalidation} "/>
+            
+                        <input type="hidden" name="payment[ps_cd_number]" class="input-text" value=""
+                               data-bind="attr: {
+                                                autocomplete: off,
+                                                id: getCode() + '_cd_number',
+                                                title: $t('Credit Card Number'),
+                                                'data-container': getCode() + '-cd-number',
+                                                'data-validate': JSON.stringify({'required-number':false})},
+                                          enable: isActive($parents),                                          
+                                          valueUpdate: 'keyup' "/>
+                        <span id="card-msg"></span>
+                      </div>
+                    </div>
+                </div>
+                <div class="field date required" data-bind="attr: {id: getCode() + '_cd_type_exp_div'}">
+                    <label data-bind="attr: {for: getCode() + '_expiration'}" class="label">
+                        <span>Data de Expiração</span>
+                    </label>
+                    <div class="control">
+                        <input type="number" name="payment[ps_cd_exp_month]" class="input-text cd-exp-date" placeholder="MM" maxlength="2" value=""
+                               data-bind="attr: {
+                                                autocomplete: off,
+                                                id: getCode() + '_expiration',
+                                                'data-container': getCode() + '-cd-month',
+                                                'data-validate': JSON.stringify({'required-number':true, 'validate-length':true, 'validate-cc-exp':'#' + getCode() + '_expiration_yr'})},
+                                          enable: isActive($parents),                                          
+                                          valueUpdate: 'keyup',
+                                          event: {keypress: limitvalue} "/>
+            
+                        <input type="number" name="payment[ps_cd_exp_year]" placeholder="AA" class="input-text cd-exp-date" maxlength="2" value=""
+                                data-bind="attr: {
+                                                autocomplete: off,
+                                                id: getCode() + '_cd_year',
+                                                'data-container': getCode() + '-cd-year',
+                                                'data-validate': JSON.stringify({'required-number':true})},
+                                          enable: isActive($parents),                                          
+                                          valueUpdate: 'keyup',
+                                          event: {keypress: limitvalue} "/>            
+            
+                    
+                    </div>
+                </div>
+                
+                <div class="field cvv required" data-bind="attr: {id: getCode() + '_cd_type_cvv_div'}">
+                    <label data-bind="attr: {for: getCode() + '_cd_cid'}" class="label">
+                        <span>CVV</span>
+                    </label>
+                    <div class="control _with-tooltip">
+                        <input type="number"
+                               autocomplete="off"
+                               class="input-text cvv minimum-length-3"
+                               name="payment[ps_cd_cid]"
+                               value=""
+                               data-bind="attr: {id: getCode() + '_cd_cid',
+                                    title: $t('Card Verification Number'),
+                                    'data-container': getCode() + '-cd-cvv',
+                                    'data-validate': JSON.stringify({'required-number':true, 'validate-card-cvv':'#' + getCode() + '_cd_type'})},
+                                    enable: isActive($parents)"
+                                     />
+                        <div class="field-tooltip toggle">
+                            <span class="field-tooltip-action action-cvv"
+                                  tabindex="0"
+                                  data-toggle="dropdown"
+                                  data-bind="attr: {title: $t('What is this?')}, mageInit: {'dropdown':{'activeClass': '_active'}}">
+                                <span><!-- ko i18n: 'What is this?'--><!-- /ko --></span>
+                            </span>
+                            <div class="field-tooltip-content"
+                                 data-target="dropdown"
+                                 data-bind="html: getCvvImageHtml()"></div>
+                        </div>
+                    </div>
+                </div>
+				 
+
+				
+				<div class="payment-method-billing-address">
+					<!-- ko foreach: $parent.getRegion(getBillingAddressFormName()) -->
+					<!-- ko template: getTemplate() --><!-- /ko -->
+					<!--/ko-->
+				</div>
+				
+				<div class="checkout-agreements-block">
+					<!-- ko foreach: $parent.getRegion('before-place-order') -->
+					<!-- ko template: getTemplate() --><!-- /ko -->
+					<!--/ko-->
+				</div>
+				<div class="actions-toolbar">
+					<div class="primary">
+						<button class="action primary checkout"
+								type="submit"
+								data-bind="
+								click: placeOrder,
+								attr: {title: $t('Place Order')},
+								css: {disabled: !isPlaceOrderActionAllowed()},
+								enable: (getCode() == isChecked())
+								"
+								disabled>
+							<span data-bind="text: $t('Place Order')"></span>
+						</button>
+					</div>
+				</div>
+			
+			</fieldset>
+		</form>
+	</div>
+</div>
+<div data-bind="afterRender: prepareGateway()"></div>

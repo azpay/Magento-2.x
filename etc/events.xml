@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="controller_action_predispatch_checkout_cart_add">
+        <observer name="restrict_sales_model_cart_add_before" instance="Azpay\Gateway\Observer\RestrictAddToCart" />
+    </event>
+    <event name="admin_system_config_changed_section_payment">
+        <observer name="custom_admin_system_config_changed_section_payment" instance="Azpay\Gateway\Observer\ConfigChange" />
+    </event>
+</config>

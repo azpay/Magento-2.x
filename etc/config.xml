@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <payment>
+            <rm_gateway_cc>
+                <active>1</active>
+                <title>Cartão de Crédito</title>
+                <payment_action>authorize</payment_action>
+                <model>Azpay\Gateway\Model\Method\Cc</model>
+                <order_status>pending</order_status>
+                <acquirer>gateway</acquirer>
+                <soft_descriptor>AZPAY</soft_descriptor>
+                <payment_method>Payment method (SampleGateway)</payment_method>
+                <can_antifraud>0</can_antifraud>
+                <antifraud>kondutoscore</antifraud>                
+                <smallest_installment>1</smallest_installment>
+                <max_installments>12</max_installments>
+                <interest_rate>0</interest_rate>
+                <credit_interest>0</credit_interest>
+                <show_min_value>0</show_min_value>
+                
+            </rm_gateway_cc>
+            <rm_gateway_cd>
+                <active>1</active>
+                <payment_action>order</payment_action>
+                <model>Azpay\Gateway\Model\Method\Cd</model>
+                <title>Cartão de Débito</title>
+                <order_status>pending</order_status>
+                <acquirer>gateway</acquirer>                      
+                <soft_descriptor>AZPAY</soft_descriptor>
+                <payment_method>Payment method (SampleGateway)</payment_method>
+                <can_antifraud>0</can_antifraud>
+                <antifraud>kondutoscore</antifraud>                                
+                <show_min_value>0</show_min_value>   
+                <payment_desc>Autorize seu pagamento abaixo</payment_desc>
+            </rm_gateway_cd>
+            <rm_gateway>
+                <title>Azpay</title>
+                <model>Azpay\Gateway\Model\Payment</model>
+                <ambiente>teste</ambiente>
+                <merchant_id>1</merchant_id>
+                <merchant_key>XXX</merchant_key>
+                <telefone_equired>1</telefone_equired>
+                <rg_required>1</rg_required>
+                <debug>1</debug>
+            </rm_gateway>
+            <rm_gateway_boleto>
+                <active>1</active>
+                <payment_action>order</payment_action>
+                <title>Boleto</title>
+                <acquirer>bradesco</acquirer>
+                <order_status>holded</order_status>
+                <sort_order>2</sort_order>
+                <model>Azpay\Gateway\Model\Method\Boleto</model>
+                <show_min_value>0</show_min_value>
+                <slip_expire>1</slip_expire>
+                <instructions>Não receber após vencimento</instructions> 
+                <payment_desc>Autorize seu pagamento abaixo</payment_desc>               
+            </rm_gateway_boleto>
+            <rm_gateway_tef>
+                <active>1</active>
+                <payment_action>order</payment_action>
+                <title>Gateway - TEF - Azpay</title>
+                <order_status>holded</order_status>
+                <sort_order>2</sort_order>
+                <model>Azpay\Gateway\Model\Method\Tef</model>
+                <show_min_value>0</show_min_value>
+                <payment_desc>Autorize seu pagamento abaixo</payment_desc>
+            </rm_gateway_tef>
+        </payment>
+    </default>
+</config>

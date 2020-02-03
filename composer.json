@@ -1,0 +1,31 @@
+{
+    "name": "azpay/magento2x",
+    "description": "Magento 2 Transparent Payment Module - AZPAY / Gateway Transparente para Magento 2",
+    "type": "magento2-module",
+    "license": "GPL-3.0-or-later",
+    "version": "2.3.2",
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Azpay\\Gateway\\": ""
+        }
+    },
+    "require": {
+        "ext-curl": "*",
+        "ext-iconv": "*",
+        "ext-json": "*",
+        "ext-libxml": "*",
+        "ext-mbstring": "*",
+        "ext-simplexml": "*",        
+        "azpay/sdk-php-7": "*"
+
+    },
+    "authors": [
+        {
+            "name": "Azpay",
+            "email": "atendimento@azpay.com.br"
+        }
+    ]
+}
