@@ -36,5 +36,6 @@ abstract class Acquirers
     const WORLDPAY                    = 31;
     const GRANITO                     = 32;
     const AZPAY                       = 33;
+    const ZOOP                        = 34;
 
 }
