@@ -352,6 +352,7 @@ class Cc extends \Magento\Payment\Model\Method\Cc
 		if ($pm == 'privatelabel') $name = Acquirers::VERANCARD;
 		if ($pm == 'stone') $name = Acquirers::STONE;
 		if ($pm == 'worldpay') $name = Acquirers::WORLDPAY;
+	    	if ($pm == 'zoop') $name = Acquirers::ZOOP;
         if ($pm == 'gateway') $name = Acquirers::AZPAY;
         
         return $name;
