@@ -33,6 +33,7 @@ class Ccacquirer implements \Magento\Framework\Option\ArrayInterface
         $options[] = array('value'=>'stone','label'=> __('STONE PAGAMENTOS'));
         $options[] = array('value'=>'worldpay','label'=> __('World Pay'));
         $options[] = array('value'=>'gateway','label'=> __('Azpay'));
+        $options[] = array('value'=>'zoop','label'=> __('Zoop'));
 
         return $options;
     }
