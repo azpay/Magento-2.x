@@ -51,7 +51,7 @@ class LayoutProcessor
             
         ];
 
-        $jsLayout['components']['checkout']['children']['steps']['children']['shipping-step']['children']
+        /*$jsLayout['components']['checkout']['children']['steps']['children']['shipping-step']['children']
         ['shippingAddress']['children']['shipping-address-fieldset']['children']['buyer_cpf'] = [
             'component' => 'Magento_Ui/js/form/element/abstract',
             'config' => [
@@ -68,7 +68,7 @@ class LayoutProcessor
             'validation' => [ ],
             'sortOrder' => 51,
             'id' => 'buyer_cpf'
-        ];
+        ];*/
 
         $jsLayout['components']['checkout']['children']['steps']['children']['shipping-step']['children']
         ['shippingAddress']['children']['shipping-address-fieldset']['children']['buyer_rg'] = [
@@ -89,7 +89,7 @@ class LayoutProcessor
             'id' => 'buyer_rg'
         ];
         
-        $jsLayout['components']['checkout']['children']['steps']['children']['shipping-step']['children']
+        /*$jsLayout['components']['checkout']['children']['steps']['children']['shipping-step']['children']
         ['shippingAddress']['children']['shipping-address-fieldset']['children']['buyer_cnpj'] = [
             'component' => 'Magento_Ui/js/form/element/abstract',
             'config' => [
@@ -106,7 +106,7 @@ class LayoutProcessor
             'validation' => [],
             'sortOrder' => 53,
             'id' => 'buyer_cpf'
-        ];
+        ];*/
 
         return $jsLayout;
     }

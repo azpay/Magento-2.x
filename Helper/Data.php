@@ -722,7 +722,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
     public function getSenderParams(\Magento\Sales\Model\Order $order, $payment)
     {
         $digits = new \Zend\Filter\Digits();
-        $cpf = $this->getCustomerCpfValue($order, $payment);
+        $cpf = $this->getCpf($order, $payment);
 
         $phone = $this->extractPhone($order->getBillingAddress()->getTelephone());
 
@@ -853,9 +853,9 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
         return $return;
     }
 
-    public function getCpf(\Magento\Sales\Model\Order $order, $payment){
+    public function getCpf(\Magento\Sales\Model\Order $order, $payment){        
         $digits = new \Zend\Filter\Digits();
-        $cpf = $this->getCustomerCpfValue($order, $payment);
+        $cpf = $order->getCustomerTaxvat();        
         return $digits->filter($cpf);
     }
 
@@ -867,8 +867,10 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
 
     public function getCnpj(\Magento\Sales\Model\Order $order, $payment){
         $digits = new \Zend\Filter\Digits();
-        $cpf = $this->getCustomerCnpjValue($order, $payment);
-        return $digits->filter($cpf);
+        $cnpj = $order->getCustomerTaxvat();
+        if (strlen($cnpj) > 11)        
+        return $digits->filter($cnpj);
+        return '';
     }
 
     public function getAddress(\Magento\Sales\Model\Order $order, $type){
