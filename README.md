@@ -20,7 +20,7 @@ FControl, ClearSale e Konduto
 
 ## Instalação
  
-    composer require azpay/magento2x:dev-master
+    composer require azpay/magento2x:latest
     bin/magento cache:clean
     bin/magento setup:upgrade
     bin/magento setup:di:compile
