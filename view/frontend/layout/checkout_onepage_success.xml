@@ -6,7 +6,7 @@
 				template="Azpay_Gateway::info.phtml" after="-">
           </block>
       </referenceContainer>   
-      <referenceBlock name="checkout.success" remove="true"/>     
+      <referenceBlock name="checkout.success" remove="false"/>     
       <referenceBlock name="checkout.registration" remove="true"/>
     </body>
 </page>
