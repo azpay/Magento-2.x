@@ -345,6 +345,7 @@ class Cc extends \Magento\Payment\Model\Method\Cc
 		if ($pm == 'granito') $name = Acquirers::GRANITO;		
 		if ($pm == 'global_payments') $name = Acquirers::GLOBAL_PAYMENT;
 		if ($pm == 'getnet') $name = Acquirers::GETNET;
+		if ($pm == 'getnet_v1') $name = Acquirers::GETNET_V1;
 		if ($pm == 'erede') $name = Acquirers::REDE_E_REDE;
 		if ($pm == 'firstdata') $name = Acquirers::FIRSTDATA;		
 		if ($pm == 'komerci_webservice') $name = Acquirers::REDE_KOMERCI_WEBSERVICE;
@@ -352,7 +353,7 @@ class Cc extends \Magento\Payment\Model\Method\Cc
 		if ($pm == 'privatelabel') $name = Acquirers::VERANCARD;
 		if ($pm == 'stone') $name = Acquirers::STONE;
 		if ($pm == 'worldpay') $name = Acquirers::WORLDPAY;
-	    	if ($pm == 'zoop') $name = Acquirers::ZOOP;
+		if ($pm == 'zoop') $name = Acquirers::ZOOP;
         if ($pm == 'gateway') $name = Acquirers::AZPAY;
         
         return $name;

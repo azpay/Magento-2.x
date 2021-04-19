@@ -25,6 +25,7 @@ class Ccacquirer implements \Magento\Framework\Option\ArrayInterface
         $options[] = array('value'=>'cielo_api','label'=> __('CIELO - SOLUÇÃO API 3.0'));
         $options[] = array('value'=>'erede','label'=> __('e-Rede Webservice'));
         $options[] = array('value'=>'getnet','label'=> __('GETNET'));
+        $options[] = array('value'=>'getnet_v1','label'=> __('GETNET V1'));
         $options[] = array('value'=>'granito','label'=> __('Granito Pagamentos'));
         $options[] = array('value'=>'global_payments','label'=> __('GLOBAL PAYMENTS'));
         $options[] = array('value'=>'komerci_webservice','label'=> __('REDE - KOMERCI WEBSERVICE'));
